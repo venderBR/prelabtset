@@ -49,3 +49,40 @@ func TestFirstname(t *testing.T){
 		g.Expect(err.Error()).To(Equal("Firstname is required"))
 	})
 }
+
+func TestStudentID(t *testing.T){
+	g := NewGomegaWithT(t)
+
+	t.Run(`test_required` ,func(t *testing.T) {
+
+		user := entity.User{
+			Firstname: "phit",
+			Lastname: "Ain",
+			StudentID: "",
+			Phone: "0645723364",
+			Email: "mangpor@gmail.com",
+		}
+
+		ok,err := govalidator.ValidateStruct(user)
+
+		g.Expect(ok).NotTo(BeTrue())
+		g.Expect(err).NotTo(BeNil())
+		g.Expect(err.Error()).To(Equal("StudentID is required"))
+	})
+	t.Run(`test_required` ,func(t *testing.T) {
+
+		user := entity.User{
+			Firstname: "phit",
+			Lastname: "Ain",
+			StudentID: "n6404796",
+			Phone: "0645723364",
+			Email: "mangpor@gmail.com",
+		}
+
+		ok,err := govalidator.ValidateStruct(user)
+
+		g.Expect(ok).NotTo(BeTrue())
+		g.Expect(err).NotTo(BeNil())
+		g.Expect(err.Error()).To(Equal("StudentID is invalid"))
+	})
+}
