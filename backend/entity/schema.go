@@ -8,7 +8,7 @@ type User struct{
 
 	gorm.Model
 
-	Firstname string   
+	Firstname string   `valid:"required~Firstname is required"`
 	Lastname  string
 	StudentID string
 	Phone     string
